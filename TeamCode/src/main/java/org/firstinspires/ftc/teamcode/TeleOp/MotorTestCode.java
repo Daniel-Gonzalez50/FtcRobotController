@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Servo;
+//import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "MotorTestCode", group = "Main")
 
@@ -15,24 +15,24 @@ public class MotorTestCode extends LinearOpMode {
     DcMotor motorToTest1 = null;
     DcMotor motorToTest2 = null;
 
-    Servo servoToTest = null;
+    //Servo servoToTest = null;
 
     @Override
     public void runOpMode() {
 
-        motorToTest1 = hardwareMap.dcMotor.get("motor1");
+        motorToTest1 = hardwareMap.dcMotor.get("backLeftMotor");
         motorToTest1.setDirection(DcMotorSimple.Direction.FORWARD);
         motorToTest1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorToTest1.setPower(0.0);
 
-        motorToTest2 = hardwareMap.dcMotor.get("motor2");
+        motorToTest2 = hardwareMap.dcMotor.get("frontRightMotor");
         motorToTest2.setDirection(DcMotorSimple.Direction.FORWARD);
         motorToTest2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorToTest2.setPower(0.0);
 
-        servoToTest = hardwareMap.servo.get("servo");
+        /*servoToTest = hardwareMap.servo.get("servo");
         servoToTest.setDirection(Servo.Direction.FORWARD);
-        servoToTest.setPosition(0.0);
+        servoToTest.setPosition(0.0); */
 
         waitForStart();
 
@@ -59,7 +59,7 @@ public class MotorTestCode extends LinearOpMode {
             if (motorTimer.seconds() >= 60){
                 motorToTest2.setPower(0.5);
                 motorToTest1.setPower(0.5);
-                servoToTest.setPosition(1.00);
+                //servoToTest.setPosition(1.00);
             }
         }
 
