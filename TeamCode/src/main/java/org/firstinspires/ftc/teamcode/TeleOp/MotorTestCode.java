@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 //import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "MotorTestCode", group = "Main")
+@TeleOp(name = "Code Test", group = "Main")
 
 public class MotorTestCode extends LinearOpMode {
 
@@ -62,6 +62,5 @@ public class MotorTestCode extends LinearOpMode {
                 //servoToTest.setPosition(1.00);
             }
         }
-
     }
 }

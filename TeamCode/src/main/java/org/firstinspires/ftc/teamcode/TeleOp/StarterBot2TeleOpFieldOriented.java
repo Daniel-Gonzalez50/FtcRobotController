@@ -7,18 +7,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
+//import com.qualcomm.robotcore.hardware.Servo;
+//import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-@TeleOp(name = "Starter Bot TeleOp FO", group = "Main")
+@TeleOp(name = "Field Oriented Drive", group = "Main")
 
-public class StarterBot2TeleOpFieldOriented extends LinearOpMode{
+public class StarterBot2TeleOpFieldOriented extends LinearOpMode {
 
     DcMotor armMotor = null;
-    CRServo intake = null;
-    Servo wrist = null;
+    //CRServo intake = null;
+    //Servo wrist = null;
 
     final double ARM_TICKS_PER_DEGREE = 19.7924893140647;
 
@@ -30,16 +30,16 @@ public class StarterBot2TeleOpFieldOriented extends LinearOpMode{
     final double ARM_ATTACH_HANGING_HOOK   = 120 * ARM_TICKS_PER_DEGREE;
     final double ARM_WINCH_ROBOT           = 15  * ARM_TICKS_PER_DEGREE;
 
-    final double INTAKE_COLLECT    = -1.0;
-    final double INTAKE_OFF        =  0.0;
-    final double INTAKE_DEPOSIT    =  0.5;
+    //final double INTAKE_COLLECT    = -1.0;
+    //final double INTAKE_OFF        =  0.0;
+    //final double INTAKE_DEPOSIT    =  0.5;
 
-    final double WRIST_FOLDED_IN   = 0;
-    final double WRIST_FOLDED_OUT  = 0.3;
+    //final double WRIST_FOLDED_IN   = 0;
+    //final double WRIST_FOLDED_OUT  = 0.3;
 
-    final double FUDGE_FACTOR = 15 * ARM_TICKS_PER_DEGREE;
+    //final double FUDGE_FACTOR = 15 * ARM_TICKS_PER_DEGREE;
 
-    double armPosition = (int) ARM_WINCH_ROBOT;
+    double armPosition = 0.0;
     double armPositionFudgeFactor;
 
     @Override
@@ -50,19 +50,15 @@ public class StarterBot2TeleOpFieldOriented extends LinearOpMode{
         DcMotor backRightMotor = hardwareMap.dcMotor.get("motorBR");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("motorBL");
 
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        armMotor.setTargetPosition(0);
-        ((DcMotorEx) armMotor).setCurrentAlert(5, CurrentUnit.AMPS);
-
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         armMotor = hardwareMap.get(DcMotor.class, "arm");
-        intake = hardwareMap.get(CRServo.class, "intake");
-        wrist  = hardwareMap.get(Servo.class, "wrist");
+        //intake = hardwareMap.get(CRServo.class, "intake");
+        //wrist  = hardwareMap.get(Servo.class, "wrist");
 
-        intake.setPower(INTAKE_OFF);
-        wrist.setPosition(WRIST_FOLDED_IN);
+        //intake.setPower(INTAKE_OFF);
+        //wrist.setPosition(WRIST_FOLDED_IN);
 
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
@@ -75,7 +71,8 @@ public class StarterBot2TeleOpFieldOriented extends LinearOpMode{
 
         waitForStart();
 
-        wrist.setPosition(WRIST_FOLDED_OUT);
+        //wrist.setPosition(WRIST_FOLDED_OUT);
+
 
         if (isStopRequested()) return;
 
@@ -108,21 +105,23 @@ public class StarterBot2TeleOpFieldOriented extends LinearOpMode{
             backRightMotor.setPower(backRightPower);
 
             if (gamepad1.a) {
-                intake.setPower(INTAKE_COLLECT);
+                //intake.setPower(INTAKE_COLLECT);
             }
             else if (gamepad1.x) {
-                intake.setPower(INTAKE_OFF);
+                //intake.setPower(INTAKE_OFF);
+
+
             }
             else if (gamepad1.b) {
-                intake.setPower(INTAKE_DEPOSIT);
+                //intake.setPower(INTAKE_DEPOSIT);
             }
 
-            armPositionFudgeFactor = FUDGE_FACTOR * (gamepad1.right_trigger + (-gamepad1.left_trigger));
+            //armPositionFudgeFactor = FUDGE_FACTOR * (gamepad1.right_trigger + (-gamepad1.left_trigger));
 
             if(gamepad1.right_bumper){
                 armPosition = ARM_COLLECT;
-                wrist.setPosition(WRIST_FOLDED_OUT);
-                intake.setPower(INTAKE_COLLECT);
+                //wrist.setPosition(WRIST_FOLDED_OUT);
+                //intake.setPower(INTAKE_COLLECT);
             }
 
             else if (gamepad1.left_bumper){
@@ -135,27 +134,27 @@ public class StarterBot2TeleOpFieldOriented extends LinearOpMode{
 
             else if (gamepad1.dpad_left) {
                 armPosition = ARM_COLLAPSED_INTO_ROBOT;
-                intake.setPower(INTAKE_OFF);
-                wrist.setPosition(WRIST_FOLDED_IN);
+                //intake.setPower(INTAKE_OFF);
+                //wrist.setPosition(WRIST_FOLDED_IN);
             }
 
             else if (gamepad1.dpad_right){
                 armPosition = ARM_SCORE_SPECIMEN;
-                wrist.setPosition(WRIST_FOLDED_IN);
+                //wrist.setPosition(WRIST_FOLDED_IN);
             }
 
             else if (gamepad1.dpad_up){
-                /* This sets the arm to vertical to hook onto the LOW RUNG for hanging */
+                // This sets the arm to vertical to hook onto the LOW RUNG for hanging
                 armPosition = ARM_ATTACH_HANGING_HOOK;
-                intake.setPower(INTAKE_OFF);
-                wrist.setPosition(WRIST_FOLDED_IN);
+                //intake.setPower(INTAKE_OFF);
+                //wrist.setPosition(WRIST_FOLDED_IN);
             }
 
             else if (gamepad1.dpad_down){
-                /* this moves the arm down to lift the robot up once it has been hooked */
+                // this moves the arm down to lift the robot up once it has been hooked
                 armPosition = ARM_WINCH_ROBOT;
-                intake.setPower(INTAKE_OFF);
-                wrist.setPosition(WRIST_FOLDED_IN);
+                //intake.setPower(INTAKE_OFF);
+                //wrist.setPosition(WRIST_FOLDED_IN);
             }
 
             armMotor.setTargetPosition((int) (armPosition  +armPositionFudgeFactor));

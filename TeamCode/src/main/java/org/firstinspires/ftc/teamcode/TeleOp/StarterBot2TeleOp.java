@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp
+@TeleOp(name = "Robot Oriented Drive", group = "main")
 public class StarterBot2TeleOp extends LinearOpMode {
+
     @Override
     public void runOpMode() {
         // Declare our motors
